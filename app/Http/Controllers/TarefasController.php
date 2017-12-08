@@ -28,7 +28,7 @@ class TarefasController extends Controller
      */
     public function index(Request $request)
     {
-        $qtd = $request['qtd'] ?: 2;
+        $qtd = $request['qtd'] ?: 10;
         $page = $request['page'] ?: 1;
         $buscar = $request['buscar'];
         $status = $request['status'];
