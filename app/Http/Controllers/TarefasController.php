@@ -66,7 +66,10 @@ class TarefasController extends Controller
      */
     public function show($id)
     {
-        //
+        $tarefa = Tarefa::find($id);
+
+        return view('tarefas.show', compact('tarefa'));
+
     }
 
     /**
@@ -77,7 +80,8 @@ class TarefasController extends Controller
      */
     public function edit($id)
     {
-        //
+        $tarefa = Tarefa::find($id);
+        return view('tarefas.edit', compact('tarefa'));
     }
 
     /**
@@ -89,7 +93,13 @@ class TarefasController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $tarefa = Tarefa::find($id);
+
+        $dados = $request->all();
+
+        $tarefa->update($dados);
+
+        return redirect()->route('tarefas.index');
     }
 
     /**

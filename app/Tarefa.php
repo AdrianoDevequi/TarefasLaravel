@@ -10,4 +10,5 @@ class Tarefa extends Model
         "titulo", "descricao", "status"
     ];
     protected $table = "tarefas";
+
 }
