@@ -2,7 +2,7 @@
 @section('content')
     <div class="panel panel-default">    
         <div class="panel-heading">Lista de Tarefas</div>
-        <form method="GET" action="">
+        <form method="GET" action="{{route('tarefas.index', 'buscar' )}}">
         <div class="row">
             <div class="col-md-12">
                 <div class="input-group">
@@ -33,7 +33,7 @@
                                 <td>{{$tarefa->status}}</td>
                                 <td>
                                     <a href="{{route('tarefas.edit', $tarefa->id)}}"><i class="glyphicon glyphicon-pencil"></i></a>
-                                    <a href=""><i class="glyphicon glyphicon-trash"></i></a>
+                                    <a href="{{route('tarefas.remove', $tarefa->id)}}"><i class="glyphicon glyphicon-trash"></i></a>
                                     <a href="{{route('tarefas.show', $tarefa->id)}}"><i class="glyphicon glyphicon-zoom-in"></i></a>
                                 </td>                                
                             </tr>                         
@@ -43,7 +43,8 @@
             </div> 
         </div>
         <div align="center" class="row">
-            ---
+            {{ $tarefas->links() }}
+        
         </div>
     </div>
     <a href="{{route('tarefas.create')}}"><button class="btn btn-primary">Nova Tarefa</button></a>

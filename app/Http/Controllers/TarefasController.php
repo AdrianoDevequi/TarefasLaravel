@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Tarefa;
 use Validator;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Pagination\Paginator;
 
 class TarefasController extends Controller
 {
@@ -24,10 +26,35 @@ class TarefasController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $tarefas = Tarefa::all();
+        $qtd = $request['qtd'] ?: 2;
+        $page = $request['page'] ?: 1;
+        $buscar = $request['buscar'];
+        $tipo = $request['tipo'];
+ 
+        Paginator::currentPageResolver(function () use ($page){
+            return $page;
+        });
+
+
+        if($buscar){
+            $imoveis = DB::table('tarefas')->where('titulo', '=', $buscar)->paginate($qtd);
+        }else{  
+            if($tipo){
+                $imoveis = DB::table('tarefas')->where('tipo', '=', $tipo)->paginate($qtd);
+            }else{
+                $imoveis = DB::table('tarefas')->paginate($qtd);
+            }
+        }
+
+
+        $tarefas = DB::table('tarefas')->paginate($qtd);
+        $tarefas = $tarefas->appends(Request::capture()->except('page'));
+ 
         return view('tarefas.index', compact('tarefas'));
+
+     
     }
 
     /**
@@ -93,10 +120,15 @@ class TarefasController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+        $validator = $this->validarTarefa($request);
+
+        if($validator->fails()){
+            return redirect()->back()->withErrors($validator->errors());
+        }
+ 
         $tarefa = Tarefa::find($id);
-
         $dados = $request->all();
-
         $tarefa->update($dados);
 
         return redirect()->route('tarefas.index');
@@ -110,6 +142,12 @@ class TarefasController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $tarefa = Tarefa::find($id)->delete();
+        return redirect()->route('tarefas.index');
+    }
+    public function remover($id){
+
+        $tarefa = Tarefa::find($id);
+        return view('tarefas.remove', compact('tarefa'));
     }
 }

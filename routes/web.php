@@ -10,5 +10,5 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::get('/tarefas/remove{id}', 'TarefasController@remover')->name('tarefas.remove');
 Route::resource('tarefas', 'TarefasController');

@@ -20,7 +20,7 @@
         <hr>
         <div class="form-group">
             <label for="descricao">Título</label>
-            <input type="text" class="form-control" placeholder="Título" name="titulo" required value="{{$tarefa->titulo}}">
+            <input type="text" class="form-control" placeholder="Título" name="titulo"  value="{{$tarefa->titulo}}">
         </div>
         <div class="form-group">
             <label for="descricao">Descrição</label>
