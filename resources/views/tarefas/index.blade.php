@@ -1,5 +1,6 @@
 @extends('shared.base')
 @section('content')
+
     <div class="panel panel-default">    
         <div class="panel-heading">Lista de Tarefas</div>
         <form method="GET" action="{{route('tarefas.index', 'buscar' )}}">
