@@ -26,14 +26,14 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">Início</a>
+                    <a class="navbar-brand" href="{{route('tarefas.index')}}">Início</a>
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li><a href="">Todos</a></li>
-                        <li><a href="">A fazer</a></li>
-                        <li><a href="">Em Progresso</a></li>
-                        <li><a href="">Finalizadas</a></li>
+                        <li><a href="{{route('tarefas.index')}}">Todos</a></li>
+                        <li><a href="{{route('tarefas.index', 'status=A fazer')}}">A fazer</a></li>
+                        <li><a href="{{route('tarefas.index', 'status=Em Progresso')}}">Em Progresso</a></li>
+                        <li><a href="{{route('tarefas.index', 'status=Finalizadas')}}">Finalizadas</a></li>
                     </ul>
                 </div>
             </div>

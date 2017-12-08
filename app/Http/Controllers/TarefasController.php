@@ -31,7 +31,7 @@ class TarefasController extends Controller
         $qtd = $request['qtd'] ?: 2;
         $page = $request['page'] ?: 1;
         $buscar = $request['buscar'];
-        $tipo = $request['tipo'];
+        $status = $request['status'];
  
         Paginator::currentPageResolver(function () use ($page){
             return $page;
@@ -39,17 +39,15 @@ class TarefasController extends Controller
 
 
         if($buscar){
-            $imoveis = DB::table('tarefas')->where('titulo', '=', $buscar)->paginate($qtd);
+            $tarefas = DB::table('tarefas')->where('titulo', '=', $buscar)->paginate($qtd);
         }else{  
-            if($tipo){
-                $imoveis = DB::table('tarefas')->where('tipo', '=', $tipo)->paginate($qtd);
+            if($status){
+                $tarefas = DB::table('tarefas')->where('status', '=', $status)->paginate($qtd);
             }else{
-                $imoveis = DB::table('tarefas')->paginate($qtd);
+                $tarefas = DB::table('tarefas')->paginate($qtd);
             }
         }
 
-
-        $tarefas = DB::table('tarefas')->paginate($qtd);
         $tarefas = $tarefas->appends(Request::capture()->except('page'));
  
         return view('tarefas.index', compact('tarefas'));
